@@ -372,6 +372,7 @@ int give_log;
  */
 
 #include "mut.h"
+#define drand48()	(rand())
 
 double erf1(double x)  /* erf; 0 < x < 0.65) */
 { double p[5] = {1.12837916709551256e0,  /* 2/sqrt(pi) */
@@ -964,13 +965,13 @@ int (*f)(), d, n;
 double *ll, *ur, *res;
 {
   int i, j, nr;
-#ifdef WIN
+#ifdef WINDOWS
   mut_printf("Sorry, Monte-Carlo Integration not enabled.\n");
   for (i=0; i<n; i++) res[i] = 0.0;
 #else
   double z, x[MXIDIM], tres[MXRESULT];
 
-srand48(234L);
+srand(234L);
 
   for (i=0; i<n; i++)
   { for (j=0; j<d; j++) x[j] = ll[j] + (ur[j]-ll[j])*drand48();
